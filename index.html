@@ -2,382 +2,328 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>心臟血管手術後居家監測表</title>
-  <style>
-    :root{
-      --bg:#f5f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280;
-      --line:#d1d5db; --primary:#2563eb; --danger:#dc2626; --ok:#059669;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;
-    }
-    .wrap{max-width:1100px;margin:24px auto;padding:0 16px 40px}
-    .card{
-      background:var(--card); border:1px solid #e5e7eb; border-radius:16px;
-      box-shadow:0 6px 24px rgba(0,0,0,.05); padding:20px; margin-bottom:16px;
-    }
-    h1{font-size:28px;margin:0 0 8px}
-    .sub{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:18px}
-    .grid{
-      display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px;
-    }
-    label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}
-    input{
-      width:100%; padding:10px 11px; border:1px solid var(--line);
-      border-radius:10px; font-size:16px; background:#fff;
-    }
-    input:focus{outline:2px solid #bfdbfe;border-color:#60a5fa}
-    .span2{grid-column:span 2}
-    .span3{grid-column:span 3}
-    .actions{
-      display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;
-    }
-    button{
-      border:none; border-radius:10px; padding:10px 14px; font-size:15px;
-      cursor:pointer; font-weight:600;
-    }
-    .primary{background:var(--primary);color:#fff}
-    .secondary{background:#eef2ff;color:#3730a3}
-    .success{background:#ecfdf5;color:#065f46}
-    .danger{background:#fef2f2;color:#991b1b}
-    .ghost{background:#f3f4f6;color:#374151}
-    .status{margin-top:10px;font-size:14px;color:var(--ok);min-height:20px}
-    .table-wrap{overflow:auto}
-    table{width:100%;border-collapse:collapse;min-width:860px}
-    th,td{border:1px solid var(--line);padding:10px;text-align:center;font-size:14px}
-    th{background:#f9fafb;position:sticky;top:0}
-    td.note{text-align:left;min-width:180px}
-    .mini{padding:6px 9px;font-size:13px}
-    .empty{padding:28px;text-align:center;color:var(--muted)}
-    .hint{font-size:12px;color:var(--muted);margin-top:8px}
-    .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .pill{background:#f3f4f6;border-radius:999px;padding:7px 10px;font-size:13px}
-    @media (max-width:850px){
-      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .span2,.span3{grid-column:span 2}
-      h1{font-size:23px}
-    }
-    @media print{
-      body{background:#fff}
-      .no-print{display:none!important}
-      .wrap{max-width:none;margin:0;padding:0}
-      .card{box-shadow:none;border:none;padding:0}
-      table{min-width:0;font-size:11px}
-      th,td{padding:6px}
-    }
-  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="居家監測" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>心臟血管手術後居家監測</title>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
-    <h1>心臟血管手術後居家監測表</h1>
-    <div class="sub">
-      建議每日固定時間量測並記錄。資料會儲存在目前瀏覽器的裝置中。
-      可匯出 PDF 與 Excel。
-    </div>
-
-    <div class="grid no-print">
+  <div id="app">
+    <header class="topbar">
       <div>
-        <label>日期</label>
-        <input id="date" type="date">
+        <div class="eyebrow">居家健康紀錄</div>
+        <h1>心臟血管手術後監測</h1>
       </div>
-      <div>
-        <label>收縮壓</label>
-        <input id="sys" type="number" inputmode="numeric" placeholder="例如 118">
-      </div>
-      <div>
-        <label>舒張壓</label>
-        <input id="dia" type="number" inputmode="numeric" placeholder="例如 60">
-      </div>
-      <div>
-        <label>心跳</label>
-        <input id="pulse" type="number" inputmode="numeric" placeholder="例如 65">
-      </div>
-      <div>
-        <label>體重（kg）</label>
-        <input id="weight" type="number" step="0.1" inputmode="decimal" placeholder="例如 40.7">
-      </div>
-      <div>
-        <label>體溫（°C）</label>
-        <input id="temp" type="number" step="0.1" inputmode="decimal" placeholder="例如 36.5">
-      </div>
-      <div class="span3">
-        <label>其他／備註</label>
-        <input id="note" type="text" placeholder="例如：飯後、頭暈、傷口狀況、醫師交代事項">
-      </div>
-    </div>
+      <button id="installBtn" class="icon-btn hidden" type="button" aria-label="安裝到主畫面">＋</button>
+    </header>
 
-    <div class="actions no-print">
-      <button class="primary" id="saveBtn">新增紀錄</button>
-      <button class="ghost" id="clearFormBtn">清空輸入</button>
-      <button class="secondary" id="pdfBtn">匯出 PDF</button>
-      <button class="success" id="excelBtn">匯出 Excel</button>
-      <button class="ghost" id="jsonBtn">備份資料（JSON）</button>
-      <label style="display:inline-flex;align-items:center;margin:0">
-        <input id="importJson" type="file" accept=".json" style="display:none">
-        <span style="background:#f3f4f6;color:#374151;border-radius:10px;padding:10px 14px;font-size:15px;font-weight:600;cursor:pointer">恢復備份</span>
-      </label>
-    </div>
-    <div class="status no-print" id="status"></div>
-    <div class="hint no-print">提醒：瀏覽器資料若被清除，紀錄也可能消失，建議定期匯出 Excel 或備份 JSON。</div>
-  </div>
-
-
-  <div class="card" id="help">
-    <details open>
-      <summary style="cursor:pointer;font-size:20px;font-weight:700">📘 使用教學</summary>
-      <div style="margin-top:16px;line-height:1.8">
-        <h3 style="margin:8px 0">1. iPhone 加到主畫面</h3>
-        <ol style="padding-left:22px">
-          <li>用 <strong>Safari</strong> 開啟這個網頁。</li>
-          <li>點 Safari 下方的「分享」按鈕。</li>
-          <li>往下找到「加入主畫面」。</li>
-          <li>按「新增」後，以後就能像 App 一樣從 iPhone 主畫面開啟。</li>
-        </ol>
-
-        <h3 style="margin:18px 0 8px">2. 新增每日紀錄</h3>
-        <ol style="padding-left:22px">
-          <li>選擇日期。</li>
-          <li>輸入收縮壓、舒張壓、心跳、體重、體溫。</li>
-          <li>如有飯前／飯後、頭暈、傷口狀況等，可填在「其他／備註」。</li>
-          <li>按「新增紀錄」儲存。</li>
-        </ol>
-
-        <h3 style="margin:18px 0 8px">3. 修改或刪除資料</h3>
-        <p>在下方「監測紀錄」找到該筆資料，按「編輯」可修改；按「刪除」會先詢問是否確認刪除。</p>
-
-        <h3 style="margin:18px 0 8px">4. 匯出 PDF</h3>
-        <ol style="padding-left:22px">
-          <li>按「匯出 PDF」。</li>
-          <li>iPhone 會開啟列印預覽。</li>
-          <li>在預覽畫面用兩指向外放大預覽頁面。</li>
-          <li>再按「分享」，即可儲存到「檔案」、iCloud Drive，或傳給家人／醫師。</li>
-        </ol>
-
-        <h3 style="margin:18px 0 8px">5. 匯出 Excel</h3>
-        <p>按「匯出 Excel」即可產生 <code>.xlsx</code> 檔案。iPhone 可選擇儲存到「檔案」或 iCloud Drive，再用 Excel、Numbers 等 App 開啟。</p>
-
-        <h3 style="margin:18px 0 8px">6. 備份資料</h3>
-        <ol style="padding-left:22px">
-          <li>按「備份資料」。</li>
-          <li>會產生一個 <code>.json</code> 備份檔。</li>
-          <li>建議儲存到 iCloud Drive，例如建立「健康紀錄備份」資料夾。</li>
-          <li>建議每週或每月備份一次。</li>
-        </ol>
-        <p><strong>注意：</strong>PDF 與 Excel 是方便閱讀、列印與分享；真正能完整恢復網站紀錄的是 JSON 備份檔。</p>
-
-        <h3 style="margin:18px 0 8px">7. 恢復備份</h3>
-        <ol style="padding-left:22px">
-          <li>按「匯入備份」。</li>
-          <li>從 iPhone「檔案」或 iCloud Drive 選擇之前的 <code>.json</code> 備份檔。</li>
-          <li>匯入成功後，紀錄會重新顯示在網頁中。</li>
-        </ol>
-
-        <h3 style="margin:18px 0 8px">8. 換手機前要做什麼？</h3>
-        <p>舊 iPhone 先執行「備份資料」，把 JSON 檔存到 iCloud Drive；新 iPhone 開啟網站後，再用「匯入備份」恢復即可。</p>
-
-        <h3 style="margin:18px 0 8px">9. 資料保存注意事項</h3>
-        <ul style="padding-left:22px">
-          <li>目前紀錄主要保存在這台裝置的瀏覽器中。</li>
-          <li>清除 Safari 網站資料、重置瀏覽器或換手機，都可能讓本機紀錄消失。</li>
-          <li>因此建議固定備份到 iCloud Drive。</li>
-          <li>不建議使用 Safari「私密瀏覽」來長期記錄。</li>
-        </ul>
-
-        <div style="margin-top:16px;padding:12px 14px;border-radius:12px;background:#fff7ed;color:#9a3412">
-          <strong>健康提醒：</strong>本工具僅供居家紀錄使用，不能取代醫師診斷。若出現明顯不適或醫師交代的警示情況，請依醫囑就醫。
+    <main>
+      <!-- 新增 -->
+      <section id="tab-entry" class="tab-panel active">
+        <div class="hero card">
+          <div>
+            <div class="label">今天</div>
+            <div id="todayText" class="hero-date">—</div>
+          </div>
+          <div class="privacy-badge">🔒 資料只存在此裝置</div>
         </div>
+
+        <form id="recordForm" class="card form-card" autocomplete="off">
+          <div class="section-title-row">
+            <div>
+              <h2 id="formTitle">新增紀錄</h2>
+              <p>建議依醫師交代，在固定時間量測。</p>
+            </div>
+            <button id="cancelEditBtn" type="button" class="text-btn hidden">取消編輯</button>
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <label for="date">日期</label>
+              <input id="date" name="date" type="date" required />
+            </div>
+            <div class="field">
+              <label for="time">時間（選填）</label>
+              <input id="time" name="time" type="time" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>血壓（mmHg）</label>
+            <div class="bp-row">
+              <div class="bp-box">
+                <span>收縮壓</span>
+                <input id="sys" name="sys" type="number" inputmode="numeric" min="1" max="300" placeholder="118" />
+              </div>
+              <div class="slash">／</div>
+              <div class="bp-box">
+                <span>舒張壓</span>
+                <input id="dia" name="dia" type="number" inputmode="numeric" min="1" max="200" placeholder="60" />
+              </div>
+            </div>
+          </div>
+
+          <div class="three-col">
+            <div class="field">
+              <label for="pulse">心跳</label>
+              <div class="unit-input">
+                <input id="pulse" name="pulse" type="number" inputmode="numeric" min="1" max="250" placeholder="65" />
+                <span>bpm</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="weight">體重</label>
+              <div class="unit-input">
+                <input id="weight" name="weight" type="number" inputmode="decimal" step="0.1" min="1" max="300" placeholder="40.7" />
+                <span>kg</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="temp">體溫</label>
+              <div class="unit-input">
+                <input id="temp" name="temp" type="number" inputmode="decimal" step="0.1" min="30" max="45" placeholder="36.5" />
+                <span>°C</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">其他／備註</label>
+            <textarea id="note" name="note" rows="3" placeholder="例如：飯後、頭暈、傷口狀況、醫師交代事項"></textarea>
+          </div>
+
+          <button id="saveBtn" class="primary-btn sticky-save" type="submit">儲存這筆紀錄</button>
+        </form>
+
+        <div class="card latest-card">
+          <div class="section-title-row">
+            <div>
+              <h2>最近一次</h2>
+              <p id="latestWhen">尚無紀錄</p>
+            </div>
+            <button class="text-btn" type="button" data-go="history">查看全部</button>
+          </div>
+          <div id="latestSummary" class="summary-grid empty-summary">
+            <div><strong>—</strong><span>血壓</span></div>
+            <div><strong>—</strong><span>心跳</span></div>
+            <div><strong>—</strong><span>體重</span></div>
+            <div><strong>—</strong><span>體溫</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 歷史 -->
+      <section id="tab-history" class="tab-panel">
+        <div class="card">
+          <div class="section-title-row">
+            <div>
+              <h2>歷史紀錄</h2>
+              <p id="historyCount">共 0 筆</p>
+            </div>
+          </div>
+          <div class="filter-row">
+            <button class="chip active" type="button" data-range="30">近 30 天</button>
+            <button class="chip" type="button" data-range="90">近 90 天</button>
+            <button class="chip" type="button" data-range="all">全部</button>
+          </div>
+          <div id="historyList" class="record-list"></div>
+        </div>
+      </section>
+
+      <!-- 趨勢 -->
+      <section id="tab-trends" class="tab-panel">
+        <div class="card">
+          <div class="section-title-row">
+            <div>
+              <h2>趨勢</h2>
+              <p>用最近紀錄快速觀察變化。</p>
+            </div>
+            <select id="trendRange" class="compact-select">
+              <option value="7">7 天</option>
+              <option value="30" selected>30 天</option>
+              <option value="90">90 天</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <h3>血壓趨勢</h3>
+          <div class="legend"><span class="dot sys-dot"></span>收縮壓 <span class="dot dia-dot"></span>舒張壓</div>
+          <div id="bpChart" class="chart empty-chart">資料不足</div>
+        </div>
+
+        <div class="card chart-card">
+          <h3>體重趨勢</h3>
+          <div id="weightChart" class="chart empty-chart">資料不足</div>
+        </div>
+
+        <div class="notice">
+          趨勢圖僅用於整理你輸入的紀錄，不會自行判斷病情。警示值與量測頻率請依醫師指示。
+        </div>
+      </section>
+
+      <!-- 資料 -->
+      <section id="tab-data" class="tab-panel">
+        <div class="card">
+          <h2>匯出與資料管理</h2>
+          <p class="muted">PDF / Excel 用於閱讀與分享；JSON 才是完整備份與恢復用檔案。</p>
+
+          <div class="action-stack">
+            <button id="pdfBtn" class="action-btn" type="button">
+              <span class="action-icon">📄</span><span><strong>產出 PDF</strong><small>適合列印、門診或傳給醫師</small></span><b>›</b>
+            </button>
+            <button id="excelBtn" class="action-btn" type="button">
+              <span class="action-icon">📊</span><span><strong>產出 Excel</strong><small>匯出全部紀錄為 .xlsx</small></span><b>›</b>
+            </button>
+            <button id="backupBtn" class="action-btn" type="button">
+              <span class="action-icon">☁️</span><span><strong>備份資料</strong><small>建議存到 iCloud Drive</small></span><b>›</b>
+            </button>
+            <label class="action-btn" for="restoreFile">
+              <span class="action-icon">♻️</span><span><strong>恢復備份</strong><small>支援本版與舊版 JSON 備份</small></span><b>›</b>
+            </label>
+            <input id="restoreFile" type="file" accept=".json,application/json" hidden />
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>資料安全</h2>
+          <ul class="clean-list">
+            <li>紀錄預設只存在目前 iPhone 的瀏覽器資料庫。</li>
+            <li>GitHub Pages 只提供網頁本身，不會自動取得你的健康紀錄。</li>
+            <li>換手機、清除 Safari 網站資料前，請先執行「備份資料」。</li>
+            <li>建議定期把 JSON 備份存到 iCloud Drive。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 教學 -->
+      <section id="tab-help" class="tab-panel">
+        <div class="card guide">
+          <h2>iPhone 使用教學</h2>
+
+          <details open>
+            <summary>① 加到 iPhone 主畫面</summary>
+            <ol>
+              <li>使用 <strong>Safari</strong> 開啟 GitHub Pages 網址。</li>
+              <li>點 Safari 的「分享」按鈕。</li>
+              <li>選「加入主畫面」。</li>
+              <li>按「新增」，之後可直接從主畫面開啟，操作方式就像 App。</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>② 每日新增紀錄</summary>
+            <ol>
+              <li>進入「記錄」。</li>
+              <li>選日期與時間，輸入血壓、心跳、體重、體溫。</li>
+              <li>有其他狀況可填在備註。</li>
+              <li>按「儲存這筆紀錄」。</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>③ 修改或刪除</summary>
+            <p>到「歷史」找到該筆資料。按「編輯」可重新修改；按「刪除」會再次要求確認。</p>
+          </details>
+
+          <details>
+            <summary>④ 產出 PDF</summary>
+            <ol>
+              <li>到「資料」→「產出 PDF」。</li>
+              <li>Safari 會開啟列印預覽。</li>
+              <li>在預覽縮圖上用兩指向外放大，會開啟完整 PDF 預覽。</li>
+              <li>再按「分享」，可存到「檔案」／iCloud Drive，或傳給家人、醫師。</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>⑤ 產出 Excel</summary>
+            <p>到「資料」→「產出 Excel」，系統會建立 .xlsx 檔。iPhone 可儲存到「檔案」或 iCloud Drive，再用 Microsoft Excel、Numbers 等 App 開啟。</p>
+          </details>
+
+          <details>
+            <summary>⑥ 備份資料</summary>
+            <ol>
+              <li>到「資料」→「備份資料」。</li>
+              <li>會產生一個 JSON 備份檔。</li>
+              <li>建議存到 iCloud Drive 的固定資料夾。</li>
+              <li>JSON 包含全部紀錄與備份日期，是未來恢復資料用的主要檔案。</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>⑦ 恢復備份</summary>
+            <ol>
+              <li>到「資料」→「恢復備份」。</li>
+              <li>選擇之前的 JSON 備份檔。</li>
+              <li>系統會先顯示資料筆數與日期範圍。</li>
+              <li>可選「合併」或「全部取代」。全部取代前，系統會先下載目前資料的安全備份。</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>⑧ 換新 iPhone</summary>
+            <ol>
+              <li>舊 iPhone 先「備份資料」到 iCloud Drive。</li>
+              <li>新 iPhone 用 Safari 開啟同一個 GitHub Pages 網址。</li>
+              <li>選「恢復備份」並選取 iCloud Drive 裡的 JSON。</li>
+              <li>確認資料後，再加入新 iPhone 主畫面。</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>⑨ GitHub Pages 部署</summary>
+            <ol>
+              <li>把這個資料夾的所有檔案上傳到 GitHub Repository。</li>
+              <li>Repository → Settings → Pages。</li>
+              <li>Source 選「Deploy from a branch」。</li>
+              <li>Branch 選 main，資料夾選 /(root)，儲存。</li>
+              <li>等 GitHub 顯示網址後，用 iPhone Safari 開啟即可。</li>
+            </ol>
+          </details>
+
+          <div class="health-note">
+            <strong>健康提醒</strong>
+            <p>本工具只做居家紀錄與整理，不能取代醫師診斷。若出現明顯不適或醫師交代的警示情況，請依醫囑處理或就醫。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 列印專用 -->
+      <section id="printArea" class="print-only"></section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="主要導覽">
+      <button class="nav-btn active" type="button" data-tab="entry"><span>＋</span><small>記錄</small></button>
+      <button class="nav-btn" type="button" data-tab="history"><span>☷</span><small>歷史</small></button>
+      <button class="nav-btn" type="button" data-tab="trends"><span>⌁</span><small>趨勢</small></button>
+      <button class="nav-btn" type="button" data-tab="data"><span>⇩</span><small>資料</small></button>
+      <button class="nav-btn" type="button" data-tab="help"><span>?</span><small>教學</small></button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="restoreDialog">
+    <form method="dialog" class="dialog-card">
+      <h3>確認恢復備份</h3>
+      <div id="restoreSummary" class="restore-summary"></div>
+      <p class="muted">「合併」會保留目前資料並加入備份；「全部取代」會先自動下載目前資料備份，再以匯入檔案取代。</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="ghost-btn">取消</button>
+        <button id="mergeRestoreBtn" value="default" type="button" class="secondary-btn">合併</button>
+        <button id="replaceRestoreBtn" value="default" type="button" class="danger-btn">全部取代</button>
       </div>
-    </details>
-  </div>
+    </form>
+  </dialog>
 
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-      <h2 style="margin:0;font-size:20px">監測紀錄</h2>
-      <div class="stats" id="stats"></div>
-    </div>
-    <div class="table-wrap" style="margin-top:14px">
-      <table id="recordsTable">
-        <thead>
-          <tr>
-            <th>日期</th>
-            <th>血壓</th>
-            <th>心跳</th>
-            <th>體重</th>
-            <th>體溫</th>
-            <th>其他／備註</th>
-            <th class="no-print">操作</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-      <div id="empty" class="empty">目前尚無紀錄</div>
-    </div>
-  </div>
-</div>
-
-<!-- Excel -->
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<!-- PDF -->
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
-
-<script>
-const KEY = "cardio_home_monitor_v1";
-let records = JSON.parse(localStorage.getItem(KEY) || "[]");
-let editingId = null;
-
-const $ = id => document.getElementById(id);
-const dateEl=$("date"), sysEl=$("sys"), diaEl=$("dia"), pulseEl=$("pulse"),
-      weightEl=$("weight"), tempEl=$("temp"), noteEl=$("note"),
-      tbody=$("tbody"), empty=$("empty"), status=$("status");
-
-dateEl.value = new Date().toISOString().slice(0,10);
-
-function saveLocal(){
-  localStorage.setItem(KEY, JSON.stringify(records));
-}
-function flash(msg){
-  status.textContent = msg;
-  setTimeout(()=>{ if(status.textContent===msg) status.textContent=""; }, 2500);
-}
-function clearForm(){
-  dateEl.value = new Date().toISOString().slice(0,10);
-  [sysEl,diaEl,pulseEl,weightEl,tempEl,noteEl].forEach(x=>x.value="");
-  editingId = null;
-  $("saveBtn").textContent = "新增紀錄";
-}
-function render(){
-  records.sort((a,b)=> b.date.localeCompare(a.date) || b.createdAt-a.createdAt);
-  tbody.innerHTML="";
-  empty.style.display = records.length ? "none":"block";
-
-  for(const r of records){
-    const tr=document.createElement("tr");
-    tr.innerHTML = `
-      <td>${esc(r.date)}</td>
-      <td>${r.sys && r.dia ? esc(r.sys)+"/"+esc(r.dia) : ""}</td>
-      <td>${esc(r.pulse||"")}</td>
-      <td>${esc(r.weight||"")}</td>
-      <td>${esc(r.temp||"")}</td>
-      <td class="note">${esc(r.note||"")}</td>
-      <td class="no-print">
-        <button class="mini secondary" onclick="editRecord('${r.id}')">編輯</button>
-        <button class="mini danger" onclick="deleteRecord('${r.id}')">刪除</button>
-      </td>`;
-    tbody.appendChild(tr);
-  }
-  $("stats").innerHTML = `<span class="pill">共 ${records.length} 筆</span>`;
-}
-function esc(v){
-  return String(v??"").replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[s]));
-}
-function val(el){ return el.value.trim(); }
-
-$("saveBtn").onclick = ()=>{
-  if(!val(dateEl)){ alert("請先選擇日期"); return; }
-  const obj = {
-    id: editingId || (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString()),
-    date: val(dateEl),
-    sys: val(sysEl),
-    dia: val(diaEl),
-    pulse: val(pulseEl),
-    weight: val(weightEl),
-    temp: val(tempEl),
-    note: val(noteEl),
-    createdAt: Date.now()
-  };
-  if(editingId){
-    const idx=records.findIndex(x=>x.id===editingId);
-    if(idx>=0) records[idx]={...records[idx],...obj,createdAt:records[idx].createdAt};
-    flash("紀錄已更新");
-  }else{
-    records.push(obj);
-    flash("紀錄已新增");
-  }
-  saveLocal(); render(); clearForm();
-};
-
-window.editRecord = id=>{
-  const r=records.find(x=>x.id===id); if(!r) return;
-  editingId=id;
-  dateEl.value=r.date||"";
-  sysEl.value=r.sys||"";
-  diaEl.value=r.dia||"";
-  pulseEl.value=r.pulse||"";
-  weightEl.value=r.weight||"";
-  tempEl.value=r.temp||"";
-  noteEl.value=r.note||"";
-  $("saveBtn").textContent="儲存修改";
-  window.scrollTo({top:0,behavior:"smooth"});
-};
-
-window.deleteRecord = id=>{
-  if(!confirm("確定刪除這筆紀錄？")) return;
-  records=records.filter(x=>x.id!==id);
-  saveLocal(); render(); flash("紀錄已刪除");
-};
-
-$("clearFormBtn").onclick=clearForm;
-
-$("excelBtn").onclick=()=>{
-  if(!records.length){ alert("目前沒有資料可匯出"); return; }
-  if(typeof XLSX==="undefined"){
-    alert("Excel 匯出元件尚未載入，請確認目前有網路連線後重試。"); return;
-  }
-  const data = records
-    .slice().sort((a,b)=>a.date.localeCompare(b.date))
-    .map(r=>({
-      "日期": r.date,
-      "收縮壓": r.sys,
-      "舒張壓": r.dia,
-      "血壓": r.sys && r.dia ? `${r.sys}/${r.dia}` : "",
-      "心跳": r.pulse,
-      "體重(kg)": r.weight,
-      "體溫(°C)": r.temp,
-      "其他/備註": r.note
-    }));
-  const ws=XLSX.utils.json_to_sheet(data);
-  ws["!cols"]=[{wch:12},{wch:10},{wch:10},{wch:12},{wch:10},{wch:12},{wch:12},{wch:30}];
-  const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,ws,"居家監測表");
-  XLSX.writeFile(wb,`心臟血管術後居家監測_${new Date().toISOString().slice(0,10)}.xlsx`);
-};
-
-$("pdfBtn").onclick=()=>{
-  if(!records.length){ alert("目前沒有資料可匯出"); return; }
-  // 中文字型在純前端 PDF 函式庫中可能無法正確嵌入，因此使用瀏覽器列印方式，
-  // 可完整保留中文字型並另存為 PDF。
-  window.print();
-};
-
-$("jsonBtn").onclick=()=>{
-  const blob=new Blob([JSON.stringify(records,null,2)],{type:"application/json;charset=utf-8"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download=`居家監測備份_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(a.href);
-};
-
-$("importJson").onchange=async e=>{
-  const f=e.target.files[0]; if(!f) return;
-  try{
-    const parsed=JSON.parse(await f.text());
-    if(!Array.isArray(parsed)) throw new Error();
-    records=parsed;
-    saveLocal(); render(); flash("備份資料已匯入");
-  }catch{
-    alert("這不是有效的備份檔");
-  }finally{
-    e.target.value="";
-  }
-};
-
-render();
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+  <script src="./app.js" defer></script>
 </body>
 </html>

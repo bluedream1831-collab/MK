@@ -1,0 +1,23 @@
+{
+  "name": "心臟血管手術後居家監測",
+  "short_name": "居家監測",
+  "description": "iPhone 居家健康紀錄、PDF、Excel、備份與恢復",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f7",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
