@@ -517,6 +517,29 @@
     setTimeout(() => window.print(), 80);
   }
 
+
+  function setupFontSizes() {
+    const key = "cardio_font_size_v1";
+    let current = "large";
+    try {
+      const saved = localStorage.getItem(key);
+      if (["normal", "large", "xlarge"].includes(saved)) current = saved;
+    } catch (_) { /* 私密模式或儲存限制時仍可使用大字版 */ }
+    function apply(size) {
+      document.documentElement.dataset.fontSize = size;
+      $$("[data-font-size]").forEach(btn => {
+        btn.setAttribute("aria-pressed", String(btn.dataset.fontSize === size));
+      });
+    }
+    apply(current);
+    $$("[data-font-size]").forEach(btn => btn.addEventListener("click", () => {
+      const size = btn.dataset.fontSize;
+      if (!["normal", "large", "xlarge"].includes(size)) return;
+      apply(size);
+      try { localStorage.setItem(key, size); } catch (_) {}
+    }));
+  }
+
   function bindEvents() {
     $("recordForm").addEventListener("submit", saveForm);
     $("cancelEditBtn").addEventListener("click", resetForm);
@@ -571,6 +594,7 @@
   async function init() {
     $("todayText").textContent = fmtDateTW(nowLocalDate());
     setFormDefaults();
+    setupFontSizes();
     bindEvents();
 
     try {

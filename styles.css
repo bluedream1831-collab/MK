@@ -184,3 +184,106 @@ dialog::backdrop{background:rgba(13,31,29,.38);backdrop-filter:blur(3px)}
   .print-foot{font-size:8pt;color:#666;margin-top:4mm}
   @page{size:A4 portrait;margin:10mm}
 }
+
+
+/* =============== 視力友善大字版 v4 ===============
+   預設大字，亦可從頁面選「一般／大字／特大字」。
+   所有字級為螢幕用，原本 A4 列印規格不變。 */
+@media screen {
+  html { --ui-scale: 1; }
+  html[data-font-size="normal"] { --ui-scale: .90; }
+  html[data-font-size="large"] { --ui-scale: 1; }
+  html[data-font-size="xlarge"] { --ui-scale: 1.18; }
+  body { font-size: calc(19px * var(--ui-scale)); line-height: 1.55;
+         padding-bottom: calc(111px + env(safe-area-inset-bottom)); }
+
+  .topbar h1 { font-size: calc(21px * var(--ui-scale)); line-height: 1.32; }
+  .eyebrow { font-size: calc(14px * var(--ui-scale)); letter-spacing: 0; }
+  .icon-btn { min-width: 48px; min-height: 48px; }
+  main { padding-top: 12px; }
+  .card { padding: 18px; }
+  h2 { font-size: calc(24px * var(--ui-scale)); line-height: 1.3; }
+  h3 { font-size: calc(21px * var(--ui-scale)); line-height: 1.4; }
+  .hero-date { font-size: calc(26px * var(--ui-scale)); }
+  .label { font-size: calc(17px * var(--ui-scale)); }
+  .privacy-badge { font-size: calc(15px * var(--ui-scale)); border-radius: 14px; line-height: 1.5; }
+  .muted, .section-title-row p { font-size: calc(17px * var(--ui-scale)); line-height: 1.65; }
+  .field > label { font-size: calc(19px * var(--ui-scale)); margin-bottom: 9px; color: #345550; }
+  input, textarea, select { font-size: calc(21px * var(--ui-scale)); padding: 14px 12px; min-height: 54px; }
+  input::placeholder, textarea::placeholder { opacity: 1; color: #687b78; }
+  textarea { line-height: 1.6; min-height: 112px; }
+  .field { margin-bottom: 20px; min-width: 0; }
+  .two-col { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .two-col input[type="time"], .two-col input[type="date"] { min-width: 0; }
+  .bp-row { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); }
+  .bp-box { padding: 10px 9px; min-width: 0; }
+  .bp-box span { font-size: calc(17px * var(--ui-scale)); color: #345550; }
+  .bp-box input { min-width: 0; font-size: calc(37px * var(--ui-scale)); min-height: 55px; padding: 2px 0; }
+  .slash { font-size: calc(25px * var(--ui-scale)); }
+  .unit-input span { font-size: calc(16px * var(--ui-scale)); }
+  .unit-input input { padding-right: 56px; }
+  .primary-btn,.secondary-btn,.danger-btn,.ghost-btn {
+    font-size: calc(20px * var(--ui-scale)); min-height: 58px; line-height: 1.35;
+  }
+  .text-btn { font-size: calc(18px * var(--ui-scale)); padding: 9px; min-height: 44px; }
+  .summary-grid { gap: 8px; }
+  .summary-grid div { min-width: 0; }
+  .summary-grid strong { font-size: calc(23px * var(--ui-scale)); line-height: 1.35; overflow-wrap: anywhere; }
+  .summary-grid span { font-size: calc(16px * var(--ui-scale)); line-height: 1.35; }
+  .chip { font-size: calc(18px * var(--ui-scale)); min-height: 50px; padding: 10px 14px; }
+  .record-date { font-size: calc(21px * var(--ui-scale)); }
+  .record-time { font-size: calc(17px * var(--ui-scale)); }
+  .record-head { flex-wrap: wrap; }
+  .row-actions { flex-wrap: wrap; }
+  .record-values strong { font-size: calc(22px * var(--ui-scale)); overflow-wrap:anywhere; line-height: 1.25; }
+  .record-values span { font-size: calc(16px * var(--ui-scale)); line-height: 1.4; }
+  .record-note { font-size: calc(18px * var(--ui-scale)); line-height: 1.7; }
+  .mini-btn { font-size: calc(18px * var(--ui-scale)); min-height: 46px; padding: 8px 13px; }
+  .empty-state { font-size: calc(18px * var(--ui-scale)); }
+  .compact-select { font-size: calc(18px * var(--ui-scale)); min-height: 52px; }
+  .legend { font-size: calc(17px * var(--ui-scale)); }
+  .chart svg { height: 230px; }
+  .chart text { font-size: calc(12px * var(--ui-scale)); }
+  .empty-chart { font-size: calc(17px * var(--ui-scale)); }
+  .notice,.health-note { font-size: calc(18px * var(--ui-scale)); line-height: 1.7; }
+  .action-btn { min-height: 78px; grid-template-columns: 34px minmax(0,1fr) auto; padding: 14px; }
+  .action-btn strong { font-size: calc(20px * var(--ui-scale)); }
+  .action-btn small { font-size: calc(16px * var(--ui-scale)); line-height: 1.55; }
+  .clean-list { font-size: calc(18px * var(--ui-scale)); line-height: 1.75; }
+  .guide details { padding: 18px 0; }
+  .guide summary { font-size: calc(20px * var(--ui-scale)); line-height: 1.5; }
+  .guide ol,.guide p { font-size: calc(18px * var(--ui-scale)); line-height: 1.8; }
+  .bottom-nav { min-height: 83px; align-items: center; padding: 9px 4px calc(10px + env(safe-area-inset-bottom)); }
+  .nav-btn { min-height: 59px; padding: 5px 1px; }
+  .nav-btn span { font-size: calc(24px * var(--ui-scale)); }
+  .nav-btn small { font-size: calc(16px * var(--ui-scale)); line-height: 1.35; margin-top: 4px; }
+  .toast { font-size: calc(17px * var(--ui-scale)); bottom: calc(108px + env(safe-area-inset-bottom)); white-space: normal; text-align: center; }
+  .dialog-card h3 { font-size: calc(23px * var(--ui-scale)); }
+  .restore-summary { font-size: calc(17px * var(--ui-scale)); }
+  .dialog-actions { grid-template-columns: 1fr 1fr; }
+
+  .font-tools { display:grid; grid-template-columns:auto repeat(3,minmax(0,1fr)); gap:7px; align-items:center;
+     padding: 10px; margin: 0 0 14px; background:#e7f2f0;
+     border:1px solid #cbdedb; border-radius:16px; }
+  .font-tools-label { font-size: calc(17px * var(--ui-scale)); font-weight:800; color:#234f49; white-space:nowrap; padding:0 4px; }
+  .font-choice { border:2px solid transparent; background:#fff; border-radius:12px;
+     font-size:calc(17px * var(--ui-scale)); min-height:48px; padding:7px 3px; font-weight:800; cursor:pointer; color:#234f49; }
+  .font-choice[aria-pressed="true"] { background:#0f766e; color:#fff; border-color:#0a5b55; }
+  .font-choice:focus-visible { outline:3px solid #2563eb; outline-offset:2px; }
+}
+@media screen and (max-width: 560px) {
+  .summary-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .record-values { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .privacy-badge { max-width: 160px; }
+  .font-tools { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .font-tools-label { grid-column:1/-1; }
+}
+@media screen and (max-width: 370px) {
+  .topbar h1 { font-size:calc(19px * var(--ui-scale)); }
+  .hero { flex-wrap: wrap; }
+  .three-col { grid-template-columns: 1fr; }
+  .three-col .field:last-child { grid-column:auto; }
+  .bp-box input { font-size:calc(32px * var(--ui-scale)); }
+  .nav-btn small { font-size:calc(14px * var(--ui-scale)); }
+}
+/* =============== 字體設定結束 =============== */

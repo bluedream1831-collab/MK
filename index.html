@@ -24,6 +24,13 @@
     </header>
 
     <main>
+      <!-- 視力友善字級：每台裝置各自記住設定，不影響監測紀錄。 -->
+      <div class="font-tools" role="group" aria-label="網頁字體大小">
+        <span class="font-tools-label">字體大小</span>
+        <button type="button" class="font-choice" data-font-size="normal" aria-pressed="false">一般</button>
+        <button type="button" class="font-choice" data-font-size="large" aria-pressed="true">大字</button>
+        <button type="button" class="font-choice" data-font-size="xlarge" aria-pressed="false">特大字</button>
+      </div>
       <!-- 新增 -->
       <section id="tab-entry" class="tab-panel active">
         <div class="hero card">
@@ -31,7 +38,7 @@
             <div class="label">今天</div>
             <div id="todayText" class="hero-date">—</div>
           </div>
-          <div class="privacy-badge">🔒 資料只存在此裝置</div>
+          <div class="privacy-badge">🔒 新增紀錄保存在此裝置</div>
         </div>
 
         <form id="recordForm" class="card form-card" autocomplete="off">
@@ -195,7 +202,7 @@
           <h2>資料安全</h2>
           <ul class="clean-list">
             <li>紀錄預設只存在目前 iPhone 的瀏覽器資料庫。</li>
-            <li>GitHub Pages 只提供網頁本身，不會自動取得你的健康紀錄。</li>
+            <li>日後新增的紀錄保存在目前 iPhone，但此「完整寫入版」內建的 19 筆紙本數據會出現在 GitHub 公開程式碼中，勿上傳含私人醫療資訊的程式到公開 Repository。</li>
             <li>換手機、清除 Safari 網站資料前，請先執行「備份資料」。</li>
             <li>建議定期把 JSON 備份存到 iCloud Drive。</li>
           </ul>
@@ -208,6 +215,11 @@
           <h2>iPhone 使用教學</h2>
 
           <details open>
+            <summary>⓪ 放大字體（老花適用）</summary>
+            <p>在網頁最上方選擇「一般」、「大字」或「特大字」。首次開啟預設為「大字」，設定會記在這台裝置，下次開啟不用重選。也可搭配 iPhone 的 Safari 網頁縮放設定。</p>
+          </details>
+
+          <details>
             <summary>① 加到 iPhone 主畫面</summary>
             <ol>
               <li>使用 <strong>Safari</strong> 開啟 GitHub Pages 網址。</li>
