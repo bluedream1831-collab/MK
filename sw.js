@@ -1,4 +1,4 @@
-const CACHE = "cardio-monitor-v4-large-font";
+const CACHE = "cardio-monitor-v5-pulse-trend";
 const CORE = [
   "./",
   "./index.html",

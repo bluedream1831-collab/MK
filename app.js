@@ -252,6 +252,12 @@
       .map(r => ({label:r.date.slice(5), a:Number(r.sys), b:Number(r.dia)}));
     drawChart($("bpChart"), bp, ["a","b"], ["sys-line","dia-line"]);
 
+    // 舊紀錄未填心跳時略過，不以 0 bpm 當作測量值，也不修改原始資料。
+    const pulse = selected
+      .filter(r => r.pulse !== "" && r.pulse != null && Number.isFinite(Number(r.pulse)) && Number(r.pulse) > 0)
+      .map(r => ({label:r.date.slice(5), a:Number(r.pulse)}));
+    drawChart($("pulseChart"), pulse, ["a"], ["pulse-line"]);
+
     const wt = selected
       .filter(r => Number(r.weight))
       .map(r => ({label:r.date.slice(5), a:Number(r.weight)}));
@@ -293,7 +299,9 @@
       `<text x="${x(i)}" y="${H-7}" text-anchor="${i===0?'start':i===points.length-1?'end':'middle'}">${safe(p.label)}</text>` : ""
     ).join("");
 
-    container.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="趨勢圖">${grid}${lines}${labels}</svg>`;
+    const chartName = container.id === "pulseChart" ? "心跳趨勢（每分鐘次數）" :
+      container.id === "bpChart" ? "血壓趨勢" : "體重趨勢";
+    container.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${chartName}"><title>${chartName}</title>${grid}${lines}${labels}</svg>`;
   }
 
   function setFormDefaults() {

@@ -103,7 +103,7 @@ textarea{resize:vertical;min-height:86px}
 .legend{font-size:12px;color:var(--muted);margin-bottom:10px}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 4px 0 10px}
 .dot:first-child{margin-left:0}
-.sys-dot{background:#0f766e}.dia-dot{background:#5f7ad6}
+.sys-dot{background:#0f766e}.dia-dot{background:#5f7ad6}.pulse-dot{background:#be185d}
 .chart{width:100%;min-height:180px}
 .empty-chart{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;background:#fafcfc;border-radius:14px}
 .chart svg{width:100%;height:190px;overflow:visible}
@@ -112,6 +112,8 @@ textarea{resize:vertical;min-height:86px}
 .chart .sys-line{fill:none;stroke:#0f766e;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .chart .dia-line{fill:none;stroke:#5f7ad6;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .chart .weight-line{fill:none;stroke:#9a6a1f;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.chart .pulse-line{fill:none;stroke:#be185d;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.chart-help{color:var(--muted);font-size:14px;line-height:1.6;margin:5px 0 0}
 .notice,.health-note{border-radius:16px;padding:14px 15px;line-height:1.6;font-size:13px}
 .notice{background:#f7f6ef;color:#6f6645;margin-bottom:14px}
 .health-note{background:#fff7ed;color:#8b4b10;margin-top:18px}
@@ -242,6 +244,7 @@ dialog::backdrop{background:rgba(13,31,29,.38);backdrop-filter:blur(3px)}
   .empty-state { font-size: calc(18px * var(--ui-scale)); }
   .compact-select { font-size: calc(18px * var(--ui-scale)); min-height: 52px; }
   .legend { font-size: calc(17px * var(--ui-scale)); }
+  .chart-help { font-size: calc(16px * var(--ui-scale)); line-height: 1.65; }
   .chart svg { height: 230px; }
   .chart text { font-size: calc(12px * var(--ui-scale)); }
   .empty-chart { font-size: calc(17px * var(--ui-scale)); }
